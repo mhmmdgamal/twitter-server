@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateTweetInput } from './input/create-tweet.input';
 import { FindTweetInput } from './input/find-tweet.input';

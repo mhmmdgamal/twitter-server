@@ -48,13 +48,13 @@ export class AuthService {
       );
     }
 
-    input.password = await AuthHelper.hash(input.password);
+    const password = await AuthHelper.hash(input.password);
 
-    const createdUser = await this.userService.create(input);
+    const createdUser = await this.userService.create({ ...input, password });
 
-    createdUser.token = this.signToken(createdUser.username);
-
-    return createdUser;
+    return Object.assign(createdUser, {
+      token: this.signToken(createdUser.email),
+    });
   }
 
   signToken(email: string) {

@@ -1,4 +1,4 @@
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GqlAurhGuard } from 'src/auth/guard/gql-auth.guard';
 import { FindUserInput } from './input/find-user.input';
