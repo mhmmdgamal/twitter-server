@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from 'src/user/model/user.model';
-import { CreateTweetInput } from './input/create-tweet.input';
-import { UpdateTweetInput } from './input/update-tweet.input';
-import { Tweet } from './model/tweet.model';
+import { User } from 'src/users/models/user.model';
+import { CreateTweetInput } from './inputs/create-tweet.input';
+import { UpdateTweetInput } from './inputs/update-tweet.input';
+import { Tweet } from './models/tweet.model';
 
 @Injectable()
 export class TweetsService {

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { AuthRegisterInput } from 'src/auth/input/auth.register.input';
-import { Tweet } from 'src/tweet/model/tweet.model';
-import { User } from './model/user.model';
+import { AuthRegisterInput } from 'src/auth/inputs/auth.register.input';
+import { Tweet } from 'src/tweets/models/tweet.model';
+import { User } from './models/user.model';
 
 @Injectable()
 export class UsersService {

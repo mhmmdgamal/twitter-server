@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/user/model/user.model';
-import { UsersService } from '../user/users.service';
+import { User } from 'src/users/models/user.model';
+import { UsersService } from '../users/users.service';
 import { AuthHelper } from './auth.helper';
-import { AuthRegisterInput } from './input/auth.register.input';
+import { AuthRegisterInput } from './inputs/auth.register.input';
 import { JwtDto } from './dto/jwt.dto';
 
 @Injectable()

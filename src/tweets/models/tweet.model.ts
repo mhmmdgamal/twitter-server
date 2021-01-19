@@ -12,7 +12,7 @@ import {
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { User } from 'src/user/model/user.model';
+import { User } from 'src/users/models/user.model';
 
 @Table
 @ObjectType()

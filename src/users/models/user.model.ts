@@ -12,7 +12,7 @@ import {
   Unique,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { Tweet } from 'src/tweet/model/tweet.model';
+import { Tweet } from 'src/tweets/models/tweet.model';
 
 @Table
 @ObjectType()

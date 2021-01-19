@@ -1,8 +1,8 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateTweetInput } from './input/create-tweet.input';
-import { FindTweetInput } from './input/find-tweet.input';
-import { UpdateTweetInput } from './input/update-tweet.input';
-import { Tweet } from './model/tweet.model';
+import { CreateTweetInput } from './inputs/create-tweet.input';
+import { FindTweetInput } from './inputs/find-tweet.input';
+import { UpdateTweetInput } from './inputs/update-tweet.input';
+import { Tweet } from './models/tweet.model';
 import { TweetsService } from './tweets.service';
 
 @Resolver()
