@@ -13,6 +13,7 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript';
 import { Tweet } from 'src/tweets/models/tweet.model';
+import { Comment } from 'src/comments/models/comment.model';
 
 @Table
 @ObjectType()
@@ -38,6 +39,9 @@ export class User extends Model {
   @Field()
   email: string;
 
+  @Field()
+  token?: string;
+
   @Default(0)
   @Column
   @Field(() => Int)
@@ -47,8 +51,9 @@ export class User extends Model {
   @Field(() => [Tweet], { nullable: true })
   tweets?: Tweet[];
 
-  @Field()
-  token?: string;
+  @HasMany(() => Comment)
+  @Field(() => [Comment], { nullable: true })
+  comments?: Comment[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })

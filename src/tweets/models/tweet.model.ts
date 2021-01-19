@@ -7,11 +7,13 @@ import {
   DataType,
   Default,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
+import { Comment } from 'src/comments/models/comment.model';
 import { User } from 'src/users/models/user.model';
 
 @Table
@@ -37,6 +39,10 @@ export class Tweet extends Model {
   @BelongsTo(() => User)
   @Field(() => User)
   user: User;
+
+  @HasMany(() => Comment)
+  @Field(() => [Comment], { nullable: true })
+  comments?: Comment[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })
