@@ -34,6 +34,20 @@ export class UsersService {
     return user;
   }
 
+  async checkIfExists(email: string): Promise<User> {
+    const user: User = await this.userModel.findOne({
+      where: {
+        email,
+      },
+      include: [Tweet],
+    });
+
+    if (!user) {
+      return user;
+    }
+    return null;
+  }
+
   async create(input: AuthRegisterInput): Promise<User> {
     return await this.userModel.create(input);
   }

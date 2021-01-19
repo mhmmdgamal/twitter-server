@@ -44,7 +44,7 @@ export class User extends Model {
   followers: number;
 
   @HasMany(() => Tweet)
-  @Field(() => [Tweet])
+  @Field(() => [Tweet], { nullable: true })
   tweets?: Tweet[];
 
   @Field()

@@ -20,9 +20,9 @@ export class AuthService {
   async login(input: AuthRegisterInput): Promise<User> {
     const validatedUser = await this.validateCredentials(input);
 
-    validatedUser.token = this.signToken(validatedUser.username);
-
-    return validatedUser;
+    return Object.assign(validatedUser, {
+      token: this.signToken({ email: validatedUser.email }),
+    });
   }
 
   private async validateCredentials(input: AuthRegisterInput) {
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   async register(input: AuthRegisterInput) {
-    const userFound = await this.userService.findByEmail(input.email);
+    const userFound = await this.userService.checkIfExists(input.email);
     if (userFound) {
       throw new BadRequestException(
         `Can not register with email ${input.email}`,
@@ -53,12 +53,11 @@ export class AuthService {
     const createdUser = await this.userService.create({ ...input, password });
 
     return Object.assign(createdUser, {
-      token: this.signToken(createdUser.email),
+      token: this.signToken({ email: createdUser.email }),
     });
   }
 
-  signToken(email: string) {
-    const payload: JwtDto = { email: email };
+  signToken(payload: JwtDto) {
     return this.jwtService.sign(payload);
   }
 
