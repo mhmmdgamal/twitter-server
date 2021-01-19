@@ -1,36 +1,49 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { UUIDV4 } from 'sequelize';
 import {
+  AllowNull,
   BelongsTo,
   Column,
+  CreatedAt,
   DataType,
+  Default,
   ForeignKey,
   Model,
+  PrimaryKey,
   Table,
+  UpdatedAt,
 } from 'sequelize-typescript';
 import { User } from 'src/users/models/user.model';
 
 @Table
 @ObjectType()
 export class Tweet extends Model {
-  @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: UUIDV4,
-    allowNull: false,
-  })
-  @Field(type => ID)
+  @PrimaryKey
+  @AllowNull(false)
+  @Default(DataType.UUIDV4)
+  @Column({ type: DataType.UUID })
+  @Field(() => ID)
   id: string;
 
-  @Column
+  @AllowNull(false)
+  @Column({ type: DataType.TEXT })
   @Field()
   body: string;
 
+  @AllowNull(false)
   @ForeignKey(() => User)
   @Column({ type: DataType.UUID })
   userId: string;
 
+  @AllowNull(false)
   @BelongsTo(() => User)
-  @Field(type => User)
-  user?: User;
+  @Field(() => User)
+  user: User;
+
+  @CreatedAt
+  @Column({ type: DataType.DATE })
+  createdAt: Date;
+
+  @UpdatedAt
+  @Column({ type: DataType.DATE })
+  updatedAt: Date;
 }

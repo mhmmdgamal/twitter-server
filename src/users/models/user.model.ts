@@ -1,39 +1,60 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
-import { UUIDV4 } from 'sequelize';
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import {
+  AllowNull,
+  Column,
+  CreatedAt,
+  DataType,
+  Default,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+  UpdatedAt,
+} from 'sequelize-typescript';
 import { Tweet } from 'src/tweets/models/tweet.model';
 
 @Table
 @ObjectType()
 export class User extends Model {
-  @Column({
-    primaryKey: true,
-    type: DataType.UUID,
-    defaultValue: UUIDV4,
-    allowNull: false,
-  })
+  @PrimaryKey
+  @Default(DataType.UUIDV4)
+  @Column({ type: DataType.UUID })
   @Field(() => ID)
   id: string;
 
-  @Column({ allowNull: false })
+  @AllowNull(false)
+  @Column
   password: string;
 
   @Column
   @Field()
+  @AllowNull(false)
   username: string;
 
-  @Column({ unique: true })
+  @Column
+  @Unique
+  @AllowNull(false)
   @Field()
   email: string;
+
+  @Default(DataType.INTEGER)
+  @Column({ defaultValue: 0 })
+  @Field(() => Int)
+  followers: number;
 
   @HasMany(() => Tweet)
   @Field(() => [Tweet])
   tweets?: Tweet[];
 
-  @Column({ defaultValue: 0 })
-  @Field(() => Int)
-  followers?: number;
-
   @Field()
   token?: string;
+
+  @CreatedAt
+  @Column({ type: DataType.DATE })
+  createdAt: Date;
+
+  @UpdatedAt
+  @Column({ type: DataType.DATE })
+  updatedAt: Date;
 }
