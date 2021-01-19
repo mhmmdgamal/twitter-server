@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  tweets: [Tweet!]!
+  followers: Int!
+  token: String!
+}
+
+type Tweet {
+  id: ID!
+  body: String!
+  user: User!
+}
+
+type Query {
+  users: [User!]!
+  user(email: String!): User!
+  tweets: [Tweet!]!
+  tweet(id: String!): Tweet!
+}
+
+type Mutation {
+  followUser(email: String!): User!
+  login(input: AuthLoginInput!): User!
+  register(input: AuthRegisterInput!): User!
+  createTweet(input: CreateTweetInput!): Tweet!
+}
+
+input AuthLoginInput {
+  email: String!
+  password: String!
+}
+
+input AuthRegisterInput {
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
+  username: String
+}
+
+input CreateTweetInput {
+  body: String!
+  userId: String!
+}
