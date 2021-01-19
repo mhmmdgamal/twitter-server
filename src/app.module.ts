@@ -7,25 +7,17 @@ import { User } from './user/model/user.model';
 import { Tweet } from './tweet/model/tweet.model';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './common/database/database.module';
 
 @Module({
   imports: [
     UsersModule,
     TweetsModule,
     AuthModule,
+    DatabaseModule,
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
-    }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      database: 'postgres',
-      username: 'twitter',
-      password: 'twitter',
-      synchronize: true,
-      autoLoadModels: true,
     }),
   ],
   providers: [],
