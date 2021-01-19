@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/models/user.model';
-import { UsersService } from '../users/users.service';
+import { User } from 'src/user/model/user.model';
+import { UsersService } from '../user/users.service';
 import { AuthHelper } from './auth.helper';
-import { AuthRegisterInput } from './dto/auth.register.input';
+import { AuthRegisterInput } from './input/auth.register.input';
 import { JwtDto } from './dto/jwt.dto';
 
 @Injectable()
@@ -26,12 +26,7 @@ export class AuthService {
   }
 
   private async validateCredentials(input: AuthRegisterInput) {
-    const userFound = await this.userService.findUserByEmail(input.email);
-    if (!userFound) {
-      throw new NotFoundException(
-        `User with email ${input.email} doesn't exist`,
-      );
-    }
+    const userFound = await this.userService.findByEmail(input.email);
 
     const passwordValid = await AuthHelper.validate(
       input.password,
@@ -41,11 +36,12 @@ export class AuthService {
     if (!passwordValid) {
       throw new Error(`Invalid Password`);
     }
+
     return userFound;
   }
 
   async register(input: AuthRegisterInput) {
-    const userFound = await this.userService.findUserByEmail(input.email);
+    const userFound = await this.userService.findByEmail(input.email);
     if (userFound) {
       throw new BadRequestException(
         `Can not register with email ${input.email}`,
@@ -67,6 +63,6 @@ export class AuthService {
   }
 
   async validateUser(email: string) {
-    return await this.userService.findUserByEmail(email);
+    return await this.userService.findByEmail(email);
   }
 }

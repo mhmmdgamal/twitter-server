@@ -6,8 +6,8 @@ type User {
   id: ID!
   username: String!
   email: String!
-  tweets: [Tweet!]!
   followers: Int!
+  tweets: [Tweet!]!
   token: String!
 }
 
@@ -29,6 +29,7 @@ type Mutation {
   login(input: AuthLoginInput!): User!
   register(input: AuthRegisterInput!): User!
   createTweet(input: CreateTweetInput!): Tweet!
+  updateTweet(input: UpdateTweetInput!): Tweet!
 }
 
 input AuthLoginInput {
@@ -47,4 +48,9 @@ input AuthRegisterInput {
 input CreateTweetInput {
   body: String!
   userId: String!
+}
+
+input UpdateTweetInput {
+  tweetId: ID!
+  body: String!
 }

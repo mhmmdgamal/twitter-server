@@ -12,7 +12,7 @@ import {
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { User } from 'src/users/models/user.model';
+import { User } from 'src/user/model/user.model';
 
 @Table
 @ObjectType()
@@ -34,7 +34,6 @@ export class Tweet extends Model {
   @Column({ type: DataType.UUID })
   userId: string;
 
-  @AllowNull(false)
   @BelongsTo(() => User)
   @Field(() => User)
   user: User;

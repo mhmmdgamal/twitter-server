@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { TweetsModule } from './tweets/tweets.module';
-import { UsersModule } from './users/users.module';
+import { TweetsModule } from './tweet/tweets.module';
+import { UsersModule } from './user/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from './users/models/user.model';
-import { Tweet } from './tweets/models/tweet.model';
+import { User } from './user/model/user.model';
+import { Tweet } from './tweet/model/tweet.model';
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 

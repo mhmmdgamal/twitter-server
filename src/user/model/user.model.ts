@@ -12,7 +12,7 @@ import {
   Unique,
   UpdatedAt,
 } from 'sequelize-typescript';
-import { Tweet } from 'src/tweets/models/tweet.model';
+import { Tweet } from 'src/tweet/model/tweet.model';
 
 @Table
 @ObjectType()
@@ -27,19 +27,19 @@ export class User extends Model {
   @Column
   password: string;
 
+  @AllowNull(false)
   @Column
   @Field()
-  @AllowNull(false)
   username: string;
 
-  @Column
   @Unique
   @AllowNull(false)
+  @Column
   @Field()
   email: string;
 
-  @Default(DataType.INTEGER)
-  @Column({ defaultValue: 0 })
+  @Default(0)
+  @Column
   @Field(() => Int)
   followers: number;
 

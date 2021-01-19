@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Tweet } from './models/tweet.model';
+import { Tweet } from './model/tweet.model';
 import { TweetsResolver } from './tweets.resolver';
 import { TweetsService } from './tweets.service';
 
