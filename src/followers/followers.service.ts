@@ -40,8 +40,9 @@ export class FollowersService {
     if (follower) {
       throw new Error('You are already following this person');
     }
+
     await this.userService.increaseFollowersCount(input.userId);
-    await this.userService.increaseFollowingsCount(input.userId);
+    await this.userService.increaseFollowingsCount(input.followerId);
     return await this.followerModel.create({ ...input });
   }
 
@@ -49,8 +50,13 @@ export class FollowersService {
     const follower: Follower = await this.followerModel.findOne({
       where: { ...input },
     });
+
+    if (!follower) {
+      throw new Error('You are not following this person');
+    }
+
     await this.userService.decreaseFollowersCount(input.userId);
-    await this.userService.decreaseFollowingsCount(input.userId);
+    await this.userService.decreaseFollowingsCount(input.followerId);
     await follower.destroy();
   }
 }

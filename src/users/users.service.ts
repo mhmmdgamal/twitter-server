@@ -62,23 +62,23 @@ export class UsersService {
     await user.destroy();
   }
 
-  async increaseFollowersCount(userId: string) {
-    const user: User = await this.userModel.findOne({ where: { id: userId } });
+  async increaseFollowersCount(id: string) {
+    const user: User = await this.userModel.findOne({ where: { id } });
     await user.update({ followersCount: user.followersCount + 1 });
   }
 
-  async decreaseFollowersCount(userId: string) {
-    const user: User = await this.userModel.findOne({ where: { id: userId } });
+  async decreaseFollowersCount(id: string) {
+    const user: User = await this.userModel.findOne({ where: { id } });
     await user.update({ followersCount: user.followersCount - 1 });
   }
 
-  async increaseFollowingsCount(userId: string) {
-    const user: User = await this.userModel.findOne({ where: { id: userId } });
+  async increaseFollowingsCount(id: string) {
+    const user: User = await this.userModel.findOne({ where: { id } });
     await user.update({ followingsCount: user.followingsCount + 1 });
   }
 
-  async decreaseFollowingsCount(userId: string) {
-    const user: User = await this.userModel.findOne({ where: { id: userId } });
+  async decreaseFollowingsCount(id: string) {
+    const user: User = await this.userModel.findOne({ where: { id } });
     await user.update({ followingsCount: user.followingsCount - 1 });
   }
 }
