@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './common/database/database.module';
 import { CommentsModule } from './comments/comments.module';
+import { FollowersModule } from './followers/followers.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CommentsModule } from './comments/comments.module';
     TweetsModule,
     DatabaseModule,
     CommentsModule,
+    FollowersModule,
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
