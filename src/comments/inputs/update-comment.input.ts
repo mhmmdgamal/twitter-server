@@ -1,7 +1,7 @@
-import { ArgsType, Field, ID } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-@ArgsType()
+@InputType()
 export class UpdateCommentInput {
   @IsString()
   @IsNotEmpty()

@@ -35,7 +35,7 @@ export class Comment extends Model {
   userId: string;
 
   @BelongsTo(() => User)
-  @Field(() => User)
+  @Field(() => User, { nullable: true })
   user: User;
 
   @AllowNull(false)
@@ -44,7 +44,7 @@ export class Comment extends Model {
   tweetId: string;
 
   @BelongsTo(() => Tweet)
-  @Field(() => Tweet)
+  @Field(() => Tweet, { nullable: true })
   tweet: Tweet;
 
   @CreatedAt

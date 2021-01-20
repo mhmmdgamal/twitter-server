@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Comment } from 'src/comments/models/comment.model';
 import { User } from 'src/users/models/user.model';
 import { CreateTweetInput } from './inputs/create-tweet.input';
 import { UpdateTweetInput } from './inputs/update-tweet.input';
@@ -13,7 +14,9 @@ export class TweetsService {
   ) { }
 
   async findAll(): Promise<Tweet[]> {
-    const tweets: Tweet[] = await this.tweetModel.findAll({ include: [User] });
+    const tweets: Tweet[] = await this.tweetModel.findAll({
+      include: [User, Comment],
+    });
 
     if (!tweets) {
       throw new NotFoundException();
@@ -26,7 +29,7 @@ export class TweetsService {
       where: {
         id,
       },
-      include: [User],
+      include: [User, Comment],
     });
 
     if (!tweet) {

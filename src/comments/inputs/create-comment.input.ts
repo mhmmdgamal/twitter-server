@@ -1,8 +1,8 @@
-import { ArgsType, Field, ID } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
 import { IsString, IsNotEmpty } from 'class-validator';
 import { IsUUID } from 'sequelize-typescript';
 
-@ArgsType()
+@InputType()
 export class CreateCommentInput {
   @IsNotEmpty()
   @IsString()
@@ -10,12 +10,10 @@ export class CreateCommentInput {
   body: string;
 
   @IsNotEmpty()
-  @IsUUID('4')
   @Field(() => ID)
   userId: string;
 
   @IsNotEmpty()
-  @IsUUID('4')
   @Field(() => ID)
   tweetId: string;
 }
