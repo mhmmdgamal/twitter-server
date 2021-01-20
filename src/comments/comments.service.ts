@@ -6,7 +6,7 @@ import { UpdateCommentInput } from './inputs/update-comment.input';
 import { Comment } from './models/comment.model';
 
 @Injectable()
-export class CommentService {
+export class CommentsService {
   constructor(
     @InjectModel(Comment)
     private commentModel: typeof Comment,

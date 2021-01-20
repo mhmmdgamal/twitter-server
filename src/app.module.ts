@@ -4,15 +4,15 @@ import { TweetsModule } from './tweets/tweets.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './common/database/database.module';
-import { CommentModule } from './comments/comments.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
+    AuthModule,
     UsersModule,
     TweetsModule,
-    AuthModule,
     DatabaseModule,
-    CommentModule,
+    CommentsModule,
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
