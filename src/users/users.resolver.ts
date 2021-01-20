@@ -20,9 +20,4 @@ export class UsersResolver {
   async user(@Args() input: FindUserInput): Promise<User> {
     return await this.usersService.findByEmail(input.email);
   }
-
-  @Mutation(() => User)
-  async followUser(@Args() input: FollowUserInput) {
-    return this.usersService.follow(input.email);
-  }
 }

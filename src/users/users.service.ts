@@ -60,14 +60,4 @@ export class UsersService {
     const user = await this.findByEmail(email);
     await user.destroy();
   }
-
-  async follow(email: string): Promise<User> {
-    const user = await this.findByEmail(email);
-
-    if (!user) {
-      throw new NotFoundException();
-    }
-
-    return await user.update({ followers: user._followers + 1 });
-  }
 }

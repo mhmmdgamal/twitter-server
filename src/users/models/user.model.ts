@@ -46,7 +46,7 @@ export class User extends Model {
   @Default(0)
   @Column
   @Field(() => Int)
-  _followers: number;
+  followersCount: number;
 
   @HasMany(() => Tweet)
   @Field(() => [Tweet], { nullable: true })
