@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { GqlAurhGuard } from 'src/auth/guards/gql-auth.guard';
 import { CreateTweetInput } from './inputs/create-tweet.input';
 import { FindTweetInput } from './inputs/find-tweet.input';
 import { UpdateTweetInput } from './inputs/update-tweet.input';
@@ -6,6 +8,7 @@ import { Tweet } from './models/tweet.model';
 import { TweetsService } from './tweets.service';
 
 @Resolver()
+@UseGuards(GqlAurhGuard)
 export class TweetsResolver {
   constructor(private readonly tweetsService: TweetsService) { }
 
@@ -21,7 +24,7 @@ export class TweetsResolver {
 
   @Mutation(() => Tweet)
   async createTweet(@Args('input') input: CreateTweetInput) {
-    return await this.tweetsService.add(input);
+    return await this.tweetsService.create(input);
   }
 
   @Mutation(() => Tweet)

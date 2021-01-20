@@ -41,7 +41,7 @@ export class TweetsService {
     await tweet.destroy();
   }
 
-  async add(tweet: CreateTweetInput): Promise<Tweet> {
+  async create(tweet: CreateTweetInput): Promise<Tweet> {
     return await this.tweetModel.create({ ...tweet });
   }
 
