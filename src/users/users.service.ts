@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { AuthRegisterInput } from 'src/auth/inputs/auth.register.input';
 import { Comment } from 'src/comments/models/comment.model';
+import { Follower } from 'src/followers/models/follower.model';
 import { Tweet } from 'src/tweets/models/tweet.model';
 import { User } from './models/user.model';
 
@@ -14,7 +15,7 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     const users: User[] = await this.userModel.findAll({
-      include: [Tweet, Comment],
+      include: [Tweet, Comment, Follower],
     });
     if (!users) {
       throw new NotFoundException();

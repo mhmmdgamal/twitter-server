@@ -3,7 +3,6 @@ import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 @InputType()
 export class UpdateCommentInput {
-  @IsString()
   @IsNotEmpty()
   @IsUUID('4')
   @Field(() => ID)

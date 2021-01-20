@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Comment } from 'src/comments/models/comment.model';
 import { User } from 'src/users/models/user.model';
-// import { CreateFollowerInput } from './inputs/create-follower.input';
-// import { UpdateFollowerInput } from './inputs/update-follower.input';
+import { CreateFollowerInput } from './inputs/create-follower.input';
+import { RemoveFollowerInput } from './inputs/remove-follower.input';
 import { Follower } from './models/follower.model';
 
 @Injectable()
@@ -13,43 +12,31 @@ export class FollowersService {
     private followerModel: typeof Follower,
   ) { }
 
-  // async findAll(): Promise<Follower[]> {
-  //   const followers: Follower[] = await this.followerModel.findAll({
-  //     include: [User, Comment],
-  //   });
+  async findAllFollowers(userId: string): Promise<Follower[]> {
+    const followers: Follower[] = await this.followerModel.findAll({
+      include: [User],
+      where: { userId },
+    });
 
-  //   if (!followers) {
-  //     throw new NotFoundException();
-  //   }
-  //   return followers;
-  // }
+    return followers;
+  }
 
-  // async findOne(id: string): Promise<Follower> {
-  //   const follower: Follower = await this.followerModel.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //     include: [User, Comment],
-  //   });
+  async create(input: CreateFollowerInput): Promise<Follower> {
+    const follower: Follower = await this.followerModel.findOne({
+      where: { ...input },
+    });
 
-  //   if (!follower) {
-  //     throw new NotFoundException();
-  //   }
+    if (follower) {
+      throw new Error('You are already following this person');
+    }
 
-  //   return follower;
-  // }
+    return await this.followerModel.create({ ...input });
+  }
 
-  // async remove(id: string): Promise<void> {
-  //   const follower = await this.findOne(id);
-  //   await follower.destroy();
-  // }
-
-  // async create(input: CreateFollowerInput): Promise<Follower> {
-  //   return await this.followerModel.create({ ...input });
-  // }
-
-  // async update(input: UpdateFollowerInput) {
-  //   const follower: Follower = await this.findOne(input.followerId);
-  //   return await follower.update({ ...input });
-  // }
+  async remove(input: RemoveFollowerInput) {
+    const follower: Follower = await this.followerModel.findOne({
+      where: { ...input },
+    });
+    await follower.destroy();
+  }
 }
