@@ -14,6 +14,7 @@ import {
 } from 'sequelize-typescript';
 import { Tweet } from 'src/tweets/models/tweet.model';
 import { Comment } from 'src/comments/models/comment.model';
+import { Follower } from 'src/followers/models/follower.model';
 
 @Table
 @ObjectType()
@@ -45,7 +46,7 @@ export class User extends Model {
   @Default(0)
   @Column
   @Field(() => Int)
-  followers: number;
+  _followers: number;
 
   @HasMany(() => Tweet)
   @Field(() => [Tweet], { nullable: true })
@@ -54,6 +55,10 @@ export class User extends Model {
   @HasMany(() => Comment)
   @Field(() => [Comment], { nullable: true })
   comments?: Comment[];
+
+  @HasMany(() => Follower)
+  @Field(() => [Follower], { nullable: true })
+  followers?: Follower[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })

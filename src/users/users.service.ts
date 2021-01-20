@@ -67,6 +67,6 @@ export class UsersService {
       throw new NotFoundException();
     }
 
-    return await user.update({ followers: user.followers + 1 });
+    return await user.update({ followers: user._followers + 1 });
   }
 }
