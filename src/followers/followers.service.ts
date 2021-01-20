@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/users/models/user.model';
 import { UsersService } from 'src/users/users.service';
-import { CreateFollowerInput } from './inputs/create-follower.input';
-import { RemoveFollowerInput } from './inputs/remove-follower.input';
+import { CreateFollowInput } from './inputs/create-follow.input';
+import { RemoveFollowInput } from './inputs/remove-follow.input';
 import { Follower } from './models/follower.model';
 
 @Injectable()
@@ -23,7 +23,16 @@ export class FollowersService {
     return followers;
   }
 
-  async create(input: CreateFollowerInput): Promise<Follower> {
+  async findUserFollowings(userId: string): Promise<Follower[]> {
+    const followings: Follower[] = await this.followerModel.findAll({
+      include: [User],
+      where: { followerId: userId },
+    });
+
+    return followings;
+  }
+
+  async create(input: CreateFollowInput): Promise<Follower> {
     const follower: Follower = await this.followerModel.findOne({
       where: { ...input },
     });
@@ -32,14 +41,16 @@ export class FollowersService {
       throw new Error('You are already following this person');
     }
     await this.userService.increaseFollowersCount(input.userId);
+    await this.userService.increaseFollowingsCount(input.userId);
     return await this.followerModel.create({ ...input });
   }
 
-  async remove(input: RemoveFollowerInput) {
+  async remove(input: RemoveFollowInput) {
     const follower: Follower = await this.followerModel.findOne({
       where: { ...input },
     });
     await this.userService.decreaseFollowersCount(input.userId);
+    await this.userService.decreaseFollowingsCount(input.userId);
     await follower.destroy();
   }
 }

@@ -71,4 +71,14 @@ export class UsersService {
     const user: User = await this.userModel.findOne({ where: { id: userId } });
     await user.update({ followersCount: user.followersCount - 1 });
   }
+
+  async increaseFollowingsCount(userId: string) {
+    const user: User = await this.userModel.findOne({ where: { id: userId } });
+    await user.update({ followingsCount: user.followingsCount + 1 });
+  }
+
+  async decreaseFollowingsCount(userId: string) {
+    const user: User = await this.userModel.findOne({ where: { id: userId } });
+    await user.update({ followingsCount: user.followingsCount - 1 });
+  }
 }

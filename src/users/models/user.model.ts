@@ -48,6 +48,11 @@ export class User extends Model {
   @Field(() => Int)
   followersCount: number;
 
+  @Default(0)
+  @Column
+  @Field(() => Int)
+  followingsCount: number;
+
   @HasMany(() => Tweet)
   @Field(() => [Tweet], { nullable: true })
   tweets?: Tweet[];
