@@ -14,7 +14,7 @@ export class FollowersResolver {
 
   @Query(() => Follower)
   async userFollowers(@Args() input: FindFollowersInput): Promise<Follower[]> {
-    return await this.followersService.findAllFollowers(input.userId);
+    return await this.followersService.findUserFollowers(input.userId);
   }
 
   @Mutation(() => Follower)

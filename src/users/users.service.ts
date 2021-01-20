@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { where } from 'sequelize';
 import { AuthRegisterInput } from 'src/auth/inputs/auth.register.input';
 import { Comment } from 'src/comments/models/comment.model';
 import { Follower } from 'src/followers/models/follower.model';
@@ -59,5 +60,15 @@ export class UsersService {
   async remove(email: string): Promise<void> {
     const user = await this.findByEmail(email);
     await user.destroy();
+  }
+
+  async increaseFollowersCount(userId: string) {
+    const user: User = await this.userModel.findOne({ where: { id: userId } });
+    await user.update({ followersCount: user.followersCount + 1 });
+  }
+
+  async decreaseFollowersCount(userId: string) {
+    const user: User = await this.userModel.findOne({ where: { id: userId } });
+    await user.update({ followersCount: user.followersCount - 1 });
   }
 }
