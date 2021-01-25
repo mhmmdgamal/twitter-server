@@ -27,8 +27,13 @@ export class FollowersResolver {
     return await this.followersService.create(input);
   }
 
-  @Mutation(() => Follower)
+  @Mutation(() => Boolean)
   async unFollowUser(@Args('input') input: RemoveFollowInput) {
-    await this.followersService.remove(input);
+    return await this.followersService.remove(input);
+  }
+
+  @Query(() => Boolean)
+  async isFollowing(@Args('input') input: RemoveFollowInput) {
+    return await this.followersService.isFollowing(input);
   }
 }

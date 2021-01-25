@@ -58,5 +58,14 @@ export class FollowersService {
     await this.userService.decreaseFollowersCount(input.userId);
     await this.userService.decreaseFollowingsCount(input.followerId);
     await follower.destroy();
+    return true;
+  }
+
+  async isFollowing(input: RemoveFollowInput) {
+    const follower: Follower = await this.followerModel.findOne({
+      where: { userId: input.userId, followerId: input.followerId },
+    });
+
+    return follower ? true : false;
   }
 }
