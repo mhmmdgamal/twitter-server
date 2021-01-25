@@ -39,6 +39,23 @@ export class UsersService {
     return user;
   }
 
+  async findByUsername(username: string): Promise<User> {
+    const user: User = await this.userModel.findOne({
+      where: {
+        username,
+      },
+      include: [Tweet],
+    });
+
+    if (!user) {
+      throw new NotFoundException(
+        `User with username ${username} doesn't exist`,
+      );
+    }
+
+    return user;
+  }
+
   async checkIfExists(email: string): Promise<User> {
     const user: User = await this.userModel.findOne({
       where: {

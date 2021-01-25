@@ -18,6 +18,6 @@ export class UsersResolver {
 
   @Query(() => User)
   async user(@Args() input: FindUserInput): Promise<User> {
-    return await this.usersService.findByEmail(input.email);
+    return await this.usersService.findByUsername(input.username);
   }
 }
