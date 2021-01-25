@@ -54,7 +54,7 @@ export class UsersService {
   }
 
   async create(input: AuthRegisterInput): Promise<User> {
-    return await this.userModel.create(input);
+    return await this.userModel.create({ ...input });
   }
 
   async remove(email: string): Promise<void> {

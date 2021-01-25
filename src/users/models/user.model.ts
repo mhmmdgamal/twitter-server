@@ -34,6 +34,14 @@ export class User extends Model {
   @Field()
   username: string;
 
+  @Column
+  @Field()
+  firstName: string;
+
+  @Column
+  @Field()
+  lastName: string;
+
   @Unique
   @AllowNull(false)
   @Column
