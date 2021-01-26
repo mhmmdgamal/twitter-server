@@ -1,10 +1,9 @@
-import { ArgsType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ArgsType, Field, ID } from '@nestjs/graphql';
+import { IsNotEmpty } from 'class-validator';
 
 @ArgsType()
 export class FindTweetInput {
-  @IsString()
   @IsNotEmpty()
-  @Field()
+  @Field(() => ID)
   id: string;
 }
